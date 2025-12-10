@@ -37,9 +37,6 @@ spec:
   ports:
   - name: mysql-svc-port
     protocol: TCP
-    port: {{ .Values.ports.conatinerport}}
-    targetPort: {{ .Values.ports.serviceport}}
-
-
-        
+    port: {{ .Values.ports.serviceport }}  # service port
+    targetPort: {{ .Values.ports.containerport }} # containerport
 

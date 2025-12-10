@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql
+  namespace: argocd   # ArgoCD must watch this namespace (usually argocd)
+  annotations:
+    argocd.argoproj.io/sync-wave: "0" # this can be used as dependency.which to execute first.
+spec:
+  project: expense     # ArgoCD project name
+  source:
+    repoURL: https://github.com/devopsbygani/mysql-argocd.git
+    targetRevision: main  # Branch, tag, or commit
+    path: .   # Folder with Kubernetes YAMLs/Helm chart
+    helm:
+      releaseName: mysql
+      valueFiles:
+      - Values.yaml
+  destination:
+    server: https://kubernetes.default.svc  # Indicates in-cluster deployment
+    namespace: argocd             # Namespace where app will be deployed
+  syncPolicy:
+    automated:        # Enable auto-sync
+      prune: true        # Delete resources removed from Git
+      selfHeal: true     # Revert drift in live cluster
+    syncOptions:
+      - CreateNamespace=true  # Auto-create target namespace if missing
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - PruneLast=true
