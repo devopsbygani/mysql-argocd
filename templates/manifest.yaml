@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+    app: db
+    project: expense
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: mysql
+      app: db
+      project: expense
+  template:
+    metadata:
+      labels:
+        name: mysql
+        app: db
+        project: expense
+    spec:
+    containers:
+    - name: mysql
+      image: promptforai/mysql:v1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  kind: ClusterIP
+  selector:
+    name: mysql
+    app: db
+    project: expense
+  ports:
+  - name: mysql-svc-port
+    protocol: TCP
+    port: {{ .Values.ports.conatinerport}}
+    targetPort: {{ .Values.ports.serviceport}}
+
+
+        
+

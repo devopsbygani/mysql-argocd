@@ -1,0 +1,4 @@
+ports:
+  conatinerport: 3306
+  serviceport: 3306
+  
