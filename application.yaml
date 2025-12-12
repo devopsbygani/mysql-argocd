@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0" # this can be used as dependency.which to execute first.
 spec:
-  project: expense     # ArgoCD project name
+  project: default     # ArgoCD project name
   source:
     repoURL: https://github.com/devopsbygani/mysql-argocd.git
     targetRevision: main  # Branch, tag, or commit
