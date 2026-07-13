@@ -1,4 +1,3 @@
 ports:
-  conatinerport: 3306
+  containerport: 3306
   serviceport: 3306
-  
